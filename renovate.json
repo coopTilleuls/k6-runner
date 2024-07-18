@@ -10,7 +10,9 @@
         "docker"
       ],
       "matchUpdateTypes": [
-        "major"
+        "major",
+        "minora",
+        "pin"
       ]
     }
   ]
