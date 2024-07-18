@@ -1,4 +1,4 @@
-FROM grafana/xk6:latest as builder
+FROM grafana/xk6:0.12.1 as builder
 RUN xk6 build  --with  github.com/grafana/xk6-redis  --with github.com/grafana/xk6-output-prometheus-remote
 
 FROM alpine:3.18 as release
