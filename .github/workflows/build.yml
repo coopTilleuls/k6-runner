@@ -1,0 +1,25 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      tags:
+        type: string
+        description: The Docker Tags (see docker/metadata-action@v4 for available values)
+        required: true
+
+jobs:
+  build-k6:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Build/Push
+      uses: coopTilleuls/action-docker-build-push@v10
+      with:
+        IMAGE_NAME: k6-runner
+        BUILD_CONTEXT: release
+        REGISTRY_JSON_KEY: ${{ secrets.GITHUB_TOKEN }}
+        IMAGE_REPOSITORY: ghcr.io/cooptilleuls
+
+
+

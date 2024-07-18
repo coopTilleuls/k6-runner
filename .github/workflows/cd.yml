@@ -1,0 +1,35 @@
+name: CD
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+
+  pull_request:
+    types: [ opened, reopened, synchronize, labeled ]
+
+jobs:
+  remove-deploy-label:
+    name: Remove deploy label
+    if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'deploy')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: mondeja/remove-labels-gh-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          labels: |
+            deploy
+
+  build:
+    name: Build
+    if: github.event_name != 'pull_request' || (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'deploy'))
+    uses: ./.github/workflows/build.yml
+    with:
+      tags: |
+        type=ref,event=branch
+        type=ref,event=pr
+        type=ref,event=tag
+        type=semver,pattern={{version}}
+        type=semver,pattern={{major}}.{{minor}}
+        type=sha
