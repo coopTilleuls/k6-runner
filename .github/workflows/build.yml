@@ -17,7 +17,7 @@ jobs:
       uses: coopTilleuls/action-docker-build-push@v10
       with:
         IMAGE_NAME: k6-runner
-        BUILD_CONTEXT: release
+        BUILD_CONTEXT: .
         REGISTRY_JSON_KEY: ${{ secrets.GITHUB_TOKEN }}
         IMAGE_REPOSITORY: ghcr.io/cooptilleuls
 
