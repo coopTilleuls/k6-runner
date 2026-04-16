@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Build/Push
-      uses: coopTilleuls/action-docker-build-push@v10
+      uses: coopTilleuls/action-docker-build-push@v12
       with:
         IMAGE_NAME: k6-runner
         BUILD_CONTEXT: .
